@@ -46,14 +46,48 @@ const Manager = () => {
   };
 
   const savePassword = () => {
+    if(form.site.length >3 && form.username.length >3 && form.password.length >3 ){
+    toast("Password Saved!!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
     setpasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
     localStorage.setItem(
       "passwords",
       JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
     );
     setform({site:"",username:"",password:""})
+  }
+  else{
+    toast("ERROR : Password not saved !!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
   };
   const deletePassword = (id) => {
+    toast("Password Deleted!!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
     setpasswordArray(passwordArray.filter(item=>item.id!==id));
 
     localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id!==id)));
@@ -84,9 +118,9 @@ const Manager = () => {
       />
       {/* Same as */}
       <ToastContainer />
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
+     
 
-      <div className=" myContainer ">
+      <div className="p-5 h-full md:p-2 md:myContainer min-h-[89vh] ">
         <div className="text-purple-500 text-4xl font-bold text-center">
           <span className="text-black"> &lt;</span>Encryp
           <span className="text-black">SAFE/&gt;</span>
@@ -103,9 +137,9 @@ const Manager = () => {
             className="rounded-full border border-purple-500 w-full p-4 py-1"
             type="text"
             name="site"
-            id=""
+            id="site"
           />
-          <div className="flex w-full gap-8">
+          <div className="flex flex-col md:flex-row w-full gap-8">
             <input
               value={form.username}
               onChange={handleChange}
@@ -113,7 +147,7 @@ const Manager = () => {
               className="rounded-full border border-purple-500 w-full p-4 py-1"
               type="text"
               name="username"
-              id=""
+              id="username"
             />
             <div className="relative flex justify-center items-center ">
               <input
@@ -124,7 +158,7 @@ const Manager = () => {
                 className="rounded-full border border-purple-500 w-full p-6 py-1"
                 type="password"
                 name="password"
-                id=""
+                id="password"
               />
               <span
                 className="absolute right-2 top-1 cursor-pointer"
